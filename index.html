@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ms" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nota interaktif Day 1 — Asas Pembangunan Aplikasi Web Menggunakan Java.">
+  <meta name="theme-color" content="#f4f7ff">
+  <title>Kursus Java — Nota Interaktif Day 1</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Terus ke kandungan</a>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Kursus Java, kembali ke Home">
+      <span class="brand-mark">{J}</span>
+      <span><strong>Kursus Java</strong><small>Nota interaktif</small></span>
+    </a>
+    <button class="mobile-menu" type="button" aria-label="Buka menu" aria-expanded="false">☰</button>
+    <nav class="main-nav" aria-label="Navigasi utama">
+      <a href="#home">Home</a>
+      <a href="#day-1">Day 1</a>
+      <a href="#day-2">Day 2 <span class="nav-dot"></span></a>
+      <a href="#day-3">Day 3 <span class="nav-dot"></span></a>
+      <a href="#resources">Resources</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-button search-trigger" type="button" aria-label="Cari istilah Java"><span>⌕</span><kbd>Ctrl K</kbd></button>
+      <button class="icon-button theme-toggle" type="button" aria-label="Tukar dark mode"><span class="theme-icon">☾</span></button>
+    </div>
+  </header>
+
+  <aside class="sidebar" aria-label="Kandungan Day 1">
+    <div class="progress-label"><span>Progres bacaan</span><strong id="progress-value">0%</strong></div>
+    <div class="progress-track"><span id="reading-progress"></span></div>
+    <p class="side-heading">Day 1 · Asas</p>
+    <nav id="scrollspy">
+      <a href="#intro">Pengenalan Java</a>
+      <a href="#compilation">Compilation Flow</a>
+      <a href="#terms">Istilah Penting</a>
+      <a href="#ide">IDE</a>
+      <a href="#tomcat">Apache Tomcat</a>
+      <a href="#project">Projek Kelas</a>
+      <a href="#lab-project">Hasil Praktikal Lab</a>
+      <a href="#library">External Library</a>
+      <a href="#naming">Naming Convention</a>
+      <a href="#servlet">Servlet</a>
+      <a href="#http">HTTP Method</a>
+      <a href="#methods">Method Dipelajari</a>
+      <a href="#oop">Asas OOP</a>
+      <a href="#summary">Checklist</a>
+      <a href="#flashcards">Flash Card</a>
+      <a href="#quiz">Mini Quiz</a>
+    </nav>
+  </aside>
+
+  <main id="main-content">
+    <section id="home" class="hero observe">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> DAY 1 · 28 JULAI 2026</div>
+        <h1>Faham Java.<br><span>Bina untuk web.</span></h1>
+        <p>Nota visual daripada kelas <strong>Asas Pembangunan Aplikasi Web Menggunakan Java</strong>—disusun semula supaya beginner boleh belajar langkah demi langkah.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#intro">Mula belajar <span>→</span></a>
+          <a class="button secondary" href="#downloads">Lihat cheat sheet</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>01 / 03</strong><span>Hari selesai</span></div>
+          <div><strong>17</strong><span>Istilah utama</span></div>
+          <div><strong>10</strong><span>Soalan quiz</span></div>
+        </div>
+      </div>
+      <div class="hero-visual glass-card">
+        <div class="window-bar"><span></span><span></span><span></span><small>HelloServlet.java</small></div>
+        <pre><code><span class="code-purple">@WebServlet</span>(<span class="code-green">"/devop/hello"</span>)
+<span class="code-purple">public class</span> <span class="code-blue">HelloServlet</span>
+    <span class="code-purple">extends</span> HttpServlet {
+
+  <span class="code-purple">protected void</span> <span class="code-yellow">doGet</span>(
+      HttpServletRequest request,
+      HttpServletResponse response) {
+
+    response.getWriter()
+      .println(<span class="code-green">"Hello from Java Servlet"</span>);
+  }
+}</code></pre>
+        <div class="running-pill"><span></span> Running on Tomcat 9</div>
+      </div>
+    </section>
+
+    <section id="day-1" class="chapter-intro observe">
+      <span class="chapter-number">01</span>
+      <div><p class="overline">DAY 1</p><h2>Daripada kod Java<br>kepada halaman web</h2></div>
+      <p>Hari pertama membina mental model: bagaimana kod ditulis, diterjemah, dijalankan oleh Tomcat dan dihantar kepada browser.</p>
+    </section>
+
+    <section id="intro" class="content-section observe">
+      <div class="section-heading"><span>01</span><div><p>ASAS</p><h2>Apa itu Java?</h2></div></div>
+      <p class="lead"><strong>Java</strong> ialah programming language untuk memberikan arahan kepada komputer. Prinsip terkenalnya ialah <em>“Write Once, Run Anywhere”</em>: kod yang sudah di-compile boleh berjalan pada pelbagai sistem yang mempunyai JVM.</p>
+      <div class="feature-grid">
+        <article class="feature-card"><span class="feature-icon">⌘</span><h3>Platform independent</h3><p>Fail <code>.class</code> berjalan melalui JVM, bukan terus bergantung pada Windows atau macOS.</p></article>
+        <article class="feature-card"><span class="feature-icon">◇</span><h3>Object-Oriented</h3><p>Kod disusun menggunakan <strong>Class</strong> dan <strong>Object</strong>, seperti pelan rumah dan rumah sebenar.</p></article>
+        <article class="feature-card"><span class="feature-icon">♢</span><h3>Matang & stabil</h3><p>Ekosistem besar, dokumentasi luas dan digunakan selama puluhan tahun.</p></article>
+        <article class="feature-card"><span class="feature-icon">⌁</span><h3>Banyak kegunaan</h3><p>Digunakan untuk enterprise system, web backend, Android legacy, perbankan, cloud dan tools.</p></article>
+      </div>
+      <div class="callout remember"><span>✦</span><div><strong>Ingat</strong><p>Java bukan JavaScript. Nama hampir sama, tetapi bahasa, cara berjalan dan kegunaannya berbeza.</p></div></div>
+    </section>
+
+    <section id="compilation" class="content-section observe">
+      <div class="section-heading"><span>02</span><div><p>DI SEBALIK TABIR</p><h2>Java Compilation Flow</h2></div></div>
+      <p class="lead">Komputer tidak terus memahami fail <code>.java</code>. Ia perlu diterjemah menjadi <strong>bytecode</strong> sebelum JVM boleh menjalankannya.</p>
+      <div class="flow-diagram">
+        <div class="flow-node"><span>01</span><strong>Main.java</strong><small>Source code manusia</small></div>
+        <div class="flow-arrow"><b>→</b><small>javac</small></div>
+        <div class="flow-node accent"><span>02</span><strong>Main.class</strong><small>Java bytecode</small></div>
+        <div class="flow-arrow"><b>→</b><small>load</small></div>
+        <div class="flow-node dark"><span>03</span><strong>JVM</strong><small>Jalankan program</small></div>
+      </div>
+      <div class="comparison-strip">
+        <div><strong>JDK</strong><p>Kotak peralatan lengkap untuk developer. Ada <code>javac</code>, tools dan runtime.</p></div>
+        <div><strong>JRE</strong><p>Persekitaran untuk menjalankan aplikasi Java; konsep ini kini biasanya dibekalkan bersama JDK/runtime khusus.</p></div>
+        <div><strong>JVM</strong><p>“Enjin” yang membaca dan menjalankan bytecode <code>.class</code>.</p></div>
+        <div><strong>javac</strong><p><strong>Java compiler</strong> yang menukar <code>.java</code> kepada <code>.class</code>.</p></div>
+      </div>
+      <div class="callout correction"><span>✓</span><div><strong>Pembetulan istilah</strong><p>Ejaan tepat ialah <code>javac</code> (huruf kecil), bukan “java c”. Arahan <code>java</code> pula digunakan untuk menjalankan program.</p></div></div>
+    </section>
+
+    <section id="terms" class="content-section observe">
+      <div class="section-heading"><span>03</span><div><p>KAMUS MINI</p><h2>Istilah penting</h2></div></div>
+      <p class="lead">Klik setiap istilah untuk melihat maksud, kegunaan dan perkara yang perlu diingat.</p>
+      <div class="term-filter">
+        <input id="term-input" type="search" placeholder="Cari Java, JAR, Servlet..." aria-label="Cari istilah">
+        <span id="term-count">17 istilah</span>
+      </div>
+      <div class="accordion" id="term-list">
+        <details data-term="java programming language"><summary><span><b>Java</b><small>Programming language</small></span><i>+</i></summary><p>Bahasa untuk menulis arahan komputer. Contoh: <code>System.out.println("Hello");</code>. <strong>Ingat:</strong> fail source menggunakan sambungan <code>.java</code>.</p></details>
+        <details data-term="jdk java development kit"><summary><span><b>JDK</b><small>Java Development Kit</small></span><i>+</i></summary><p>Set lengkap untuk membina aplikasi Java, termasuk compiler dan runtime. Developer perlu memasang JDK.</p></details>
+        <details data-term="jre java runtime environment"><summary><span><b>JRE</b><small>Java Runtime Environment</small></span><i>+</i></summary><p>Komponen yang menyediakan persekitaran untuk aplikasi Java berjalan. Dalam Java moden, runtime biasanya datang melalui JDK atau dibina khusus untuk aplikasi.</p></details>
+        <details data-term="jvm java virtual machine"><summary><span><b>JVM</b><small>Java Virtual Machine</small></span><i>+</i></summary><p>Enjin maya yang menjalankan bytecode. Analogi: <code>.class</code> ialah resipi universal, JVM ialah tukang masak bagi setiap sistem operasi.</p></details>
+        <details data-term="javac compiler"><summary><span><b>javac</b><small>Java compiler</small></span><i>+</i></summary><p>Tool dalam JDK yang menukar source code <code>.java</code> kepada bytecode <code>.class</code>.</p></details>
+        <details data-term="javax namespace package"><summary><span><b>javax</b><small>Namespace Java EE lama</small></span><i>+</i></summary><p>Awalan Package untuk API Java EE terdahulu, contohnya <code>javax.servlet.http</code>. <strong>Tomcat 9 menggunakan javax.</strong></p></details>
+        <details data-term="jakarta namespace package"><summary><span><b>jakarta</b><small>Namespace Jakarta EE baharu</small></span><i>+</i></summary><p>Nama baharu bagi banyak API Java EE selepas berpindah ke Eclipse Foundation. Tomcat 10+ menggunakan <code>jakarta.servlet</code>, jadi Import-nya tidak sama dengan Tomcat 9.</p></details>
+        <details data-term="servlet server request response"><summary><span><b>Servlet</b><small>Java component untuk web</small></span><i>+</i></summary><p>Class Java yang menerima HTTP Request dan menghasilkan HTTP Response. Dalam kelas, <code>HelloServlet</code> ialah contoh Servlet.</p></details>
+        <details data-term="api application programming interface"><summary><span><b>API</b><small>Application Programming Interface</small></span><i>+</i></summary><p>Peraturan dan fungsi siap guna yang membolehkan software berkomunikasi. Servlet API menyediakan Class seperti <code>HttpServlet</code>.</p></details>
+        <details data-term="http protocol web"><summary><span><b>HTTP</b><small>Hypertext Transfer Protocol</small></span><i>+</i></summary><p>Peraturan komunikasi antara browser dan server. Browser menghantar Request; server membalas Response.</p></details>
+        <details data-term="request permintaan browser"><summary><span><b>Request</b><small>Permintaan client</small></span><i>+</i></summary><p>Maklumat yang dihantar browser kepada server—URL, HTTP Method, header dan input pengguna.</p></details>
+        <details data-term="response jawapan server"><summary><span><b>Response</b><small>Jawapan server</small></span><i>+</i></summary><p>Maklumat yang server pulangkan—status code, header dan kandungan seperti HTML atau JSON.</p></details>
+        <details data-term="package folder namespace"><summary><span><b>Package</b><small>Susunan dan namespace Class</small></span><i>+</i></summary><p>Mengelompokkan Class dan mengelakkan nama bertembung. Contoh projek: <code>com.app1.devop</code>.</p></details>
+        <details data-term="import class"><summary><span><b>Import</b><small>Gunakan Class dari Package lain</small></span><i>+</i></summary><p>Membolehkan nama Class digunakan tanpa menulis nama Package penuh. Contoh: <code>import java.io.IOException;</code>.</p></details>
+        <details data-term="build path classpath eclipse"><summary><span><b>Build Path & Classpath</b><small>Lokasi rujukan compiler/JVM</small></span><i>+</i></summary><p><strong>Build Path</strong> ialah tetapan Eclipse untuk source dan library ketika build. <strong>Classpath</strong> ialah senarai lokasi Class/JAR yang dicari ketika compile atau run.</p></details>
+        <details data-term="jar java archive library"><summary><span><b>JAR</b><small>Java Archive</small></span><i>+</i></summary><p>Fail arkib yang mengumpulkan Class dan resource Java. Analogi: kotak alat siap guna, contohnya <code>jstl-1.2.jar</code>.</p></details>
+        <details data-term="war deployment archive"><summary><span><b>WAR & Deployment</b><small>Web Application Archive</small></span><i>+</i></summary><p><strong>WAR</strong> membungkus aplikasi web Java untuk server. <strong>Deployment</strong> ialah proses meletakkan aplikasi pada Tomcat supaya boleh diakses pengguna.</p></details>
+      </div>
+      <p class="empty-state" id="term-empty" hidden>Tiada istilah dijumpai. Cuba kata kunci lain.</p>
+    </section>
+
+    <section id="ide" class="content-section observe">
+      <div class="section-heading"><span>04</span><div><p>TEMPAT MENULIS KOD</p><h2>IDE</h2></div></div>
+      <p class="lead"><strong>IDE (Integrated Development Environment)</strong> ialah aplikasi yang menggabungkan editor kod, compiler, debugger dan pengurusan projek—seperti bengkel lengkap untuk developer.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>IDE</th><th>Kelebihan</th><th>Kekurangan</th><th>Sesuai untuk</th></tr></thead>
+        <tbody>
+          <tr class="highlight-row"><td><strong>Eclipse IDE</strong><span class="badge">KELAS INI</span></td><td>Percuma, matang, sokongan Java EE & Tomcat baik</td><td>Antaramuka padat; setup boleh mengelirukan beginner</td><td>Kursus ini, enterprise Java</td></tr>
+          <tr><td><strong>IntelliJ IDEA Community</strong></td><td>Percuma, pintar, mudah untuk Java asas</td><td>Ciri Jakarta EE/web lanjutan terhad</td><td>Pelajar, Java SE</td></tr>
+          <tr><td><strong>IntelliJ IDEA Ultimate</strong><span class="badge muted">PAID</span></td><td>Sokongan framework dan web sangat lengkap</td><td>Memerlukan lesen berbayar</td><td>Professional developer</td></tr>
+          <tr><td><strong>Visual Studio Code</strong></td><td>Ringan, fleksibel, extension banyak</td><td>Perlu pasang/configure extension; bukan IDE Java penuh secara asal</td><td>Developer pelbagai bahasa</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <section id="tomcat" class="content-section observe">
+      <div class="section-heading"><span>05</span><div><p>WEB SERVER</p><h2>Apache Tomcat 9</h2></div></div>
+      <p class="lead"><strong>Tomcat</strong> menerima Request daripada browser dan menjalankan Servlet. Ia ialah web server dan <strong>Servlet Container</strong>—persekitaran yang mengurus Servlet.</p>
+      <div class="vertical-flow">
+        <div><span>01</span><strong>Browser</strong><small>Hantar HTTP Request</small></div><b>↓</b>
+        <div><span>02</span><strong>Tomcat 9</strong><small>Terima & arahkan Request</small></div><b>↓</b>
+        <div><span>03</span><strong>Servlet</strong><small>Jalankan doGet() / doPost()</small></div><b>↓</b>
+        <div><span>04</span><strong>Java / JVM</strong><small>Proses arahan</small></div>
+      </div>
+      <div class="callout warning"><span>!</span><div><strong>Keserasian penting</strong><p>Tomcat 9 menggunakan Servlet API berasaskan <code>javax.servlet.*</code>. Tomcat 10 dan ke atas menggunakan <code>jakarta.servlet.*</code>. Jangan campurkan kedua-duanya.</p></div></div>
+    </section>
+
+    <section id="project" class="content-section observe">
+      <div class="section-heading"><span>06</span><div><p>PROJEK SEBENAR</p><h2>Struktur MyApp</h2></div></div>
+      <p class="lead">Semakan folder menunjukkan nama projek sebenar ialah <strong>MyApp</strong>, bukan <code>myapp.com</code>. Package Servlet ialah <code>com.app1.devop</code>.</p>
+      <div class="project-layout">
+        <div class="file-tree glass-card">
+          <p><span>▾</span> 📁 MyApp</p>
+          <p class="l1"><span>▾</span> 📁 src/main</p>
+          <p class="l2"><span>▾</span> 📁 java</p>
+          <p class="l3"><span>▾</span> 📁 com/app1/devop</p>
+          <p class="l4 active-file">☕ HelloServlet.java</p>
+          <p class="l2"><span>▾</span> 📁 webapp</p>
+          <p class="l3">🌐 index.html</p>
+          <p class="l3"><span>▾</span> 🔒 WEB-INF</p>
+          <p class="l4">📁 classes</p>
+          <p class="l4">📁 lib <em>jstl-1.2.jar</em></p>
+          <p class="l4">⚙ web.xml</p>
+        </div>
+        <div class="project-notes">
+          <h3>Dua struktur yang biasa dilihat</h3>
+          <p>Sesetengah tutorial Eclipse lama menggunakan <code>WebContent</code>. Projek anda menggunakan struktur Maven-style <code>src/main/webapp</code>. Kedua-duanya berperanan sebagai web root.</p>
+          <div class="mini-note"><strong>🔒 WEB-INF</strong><span>Folder dilindungi. Fail di dalamnya tidak boleh diminta terus melalui URL browser. Tomcat tetap boleh menggunakannya.</span></div>
+          <div class="mini-note"><strong>⚙ web.xml</strong><span>Deployment descriptor untuk konfigurasi aplikasi. Projek ini memetakan Servlet menggunakan <code>@WebServlet</code>, jadi mapping tidak perlu ditulis lagi di sini.</span></div>
+        </div>
+      </div>
+      <div class="code-block">
+        <div class="code-head"><span>HelloServlet.java</span><button class="copy-button" type="button">Copy</button></div>
+        <pre><code><span class="code-purple">package</span> com.app1.devop;
+
+<span class="code-purple">import</span> javax.servlet.annotation.WebServlet;
+<span class="code-purple">import</span> javax.servlet.http.HttpServlet;
+
+<span class="code-purple">@WebServlet</span>(<span class="code-green">"/devop/hello"</span>)
+<span class="code-purple">public class</span> <span class="code-blue">HelloServlet</span> <span class="code-purple">extends</span> HttpServlet {
+    <span class="code-comment">// doGet() menerima GET Request</span>
+}</code></pre>
+      </div>
+    </section>
+
+    <section id="lab-project" class="content-section lab-section observe">
+      <div class="section-heading"><span>LAB</span><div><p>HASIL PROJEK TEORI & PRAKTIKAL</p><h2>Day 1: MyApp Berjalan</h2></div></div>
+      <p class="lead">Inilah kod sebenar yang dibina dalam lab. Kita bermula dengan halaman HTML statik, kemudian menghasilkan kandungan dinamik menggunakan <strong>Java Servlet</strong>.</p>
+
+      <div class="lab-overview">
+        <div class="lab-step">
+          <span>01</span>
+          <div><small>HALAMAN STATIK</small><strong>index.html</strong><p>Browser membaca HTML dan memaparkan tajuk kursus.</p></div>
+        </div>
+        <i>→</i>
+        <div class="lab-step">
+          <span>02</span>
+          <div><small>SERVER</small><strong>Apache Tomcat 9</strong><p>Tomcat menerima HTTP Request daripada browser.</p></div>
+        </div>
+        <i>→</i>
+        <div class="lab-step">
+          <span>03</span>
+          <div><small>KOD JAVA</small><strong>HelloServlet.java</strong><p>Servlet membina HTML dan menghantarnya sebagai Response.</p></div>
+        </div>
+      </div>
+
+      <article class="lab-module">
+        <div class="lab-module-head">
+          <div><span class="lab-number">01</span><div><small>HTML · FRONT END</small><h3>Halaman Selamat Datang</h3></div></div>
+          <span class="status-badge"><i></i> SELESAI</span>
+        </div>
+        <div class="lab-split">
+          <div class="code-block lab-code">
+            <div class="code-head"><span>🌐 src/main/webapp/index.html</span><button class="copy-button" type="button">Copy</button></div>
+            <pre><code><span class="code-blue">&lt;!DOCTYPE html&gt;</span>
+<span class="code-blue">&lt;html&gt;</span>
+<span class="code-blue">&lt;head&gt;</span>
+  <span class="code-blue">&lt;meta</span> <span class="code-yellow">charset</span>=<span class="code-green">"UTF-8"</span><span class="code-blue">&gt;</span>
+  <span class="code-blue">&lt;title&gt;</span>SELAMAT DATANG<span class="code-blue">&lt;/title&gt;</span>
+<span class="code-blue">&lt;/head&gt;</span>
+<span class="code-blue">&lt;body&gt;</span>
+  <span class="code-blue">&lt;h1&gt;</span>SELAMAT DATANG KE KURSUS JAVA<span class="code-blue">&lt;/h1&gt;</span>
+<span class="code-blue">&lt;/body&gt;</span>
+<span class="code-blue">&lt;/html&gt;</span></code></pre>
+          </div>
+          <div class="browser-preview">
+            <div class="browser-chrome">
+              <div><span></span><span></span><span></span></div>
+              <div class="address-bar">⌕ &nbsp; localhost:8080/MyApp/</div>
+            </div>
+            <div class="browser-page welcome-preview">
+              <span class="preview-label">OUTPUT BROWSER</span>
+              <div class="java-cup">J</div>
+              <h3>SELAMAT DATANG<br>KE KURSUS JAVA</h3>
+              <p>Halaman pertama projek <strong>MyApp</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="callout correction lab-note"><span>✓</span><div><strong>Struktur HTML telah dibetulkan</strong><p>Dalam kod asal kelas, tag <code>&lt;/body&gt;</code> ditutup sebelum <code>&lt;h1&gt;</code>. Kandungan yang dipaparkan mesti berada <em>di dalam</em> pasangan <code>&lt;body&gt;...&lt;/body&gt;</code>. Browser mungkin masih cuba membetulkannya secara automatik, tetapi kod yang sah lebih mudah dijaga.</p></div></div>
+      </article>
+
+      <article class="lab-module">
+        <div class="lab-module-head">
+          <div><span class="lab-number">02</span><div><small>JAVA · BACK END</small><h3>HelloServlet</h3></div></div>
+          <span class="status-badge"><i></i> RUNNING</span>
+        </div>
+        <div class="servlet-route">
+          <span>HTTP GET</span>
+          <code>http://localhost:8080/MyApp/devop/hello</code>
+          <small>@WebServlet("/devop/hello")</small>
+        </div>
+        <div class="code-block lab-code full">
+          <div class="code-head"><span>☕ src/main/java/com/app1/devop/HelloServlet.java</span><button class="copy-button" type="button">Copy</button></div>
+          <pre><code><span class="code-purple">package</span> com.app1.devop;
+
+<span class="code-purple">import</span> java.io.IOException;
+<span class="code-purple">import</span> java.io.PrintWriter;
+
+<span class="code-purple">import</span> javax.servlet.ServletException;
+<span class="code-purple">import</span> javax.servlet.annotation.WebServlet;
+<span class="code-purple">import</span> javax.servlet.http.HttpServlet;
+<span class="code-purple">import</span> javax.servlet.http.HttpServletRequest;
+<span class="code-purple">import</span> javax.servlet.http.HttpServletResponse;
+
+<span class="code-purple">@WebServlet</span>(<span class="code-green">"/devop/hello"</span>)
+<span class="code-purple">public class</span> <span class="code-blue">HelloServlet</span> <span class="code-purple">extends</span> HttpServlet {
+
+    <span class="code-purple">@Override</span>
+    <span class="code-purple">protected void</span> <span class="code-yellow">doGet</span>(
+            HttpServletRequest req,
+            HttpServletResponse resp
+    ) <span class="code-purple">throws</span> ServletException, IOException {
+
+        <span class="code-comment">// TODO Auto-generated method stub</span>
+        <span class="code-comment">// super.doGet(req, resp);</span>
+
+        System.out.println(<span class="code-green">"Selamat Petang Semua!"</span>);
+        resp.setContentType(<span class="code-green">"text/html"</span>);
+
+        PrintWriter out = resp.getWriter();
+        out.println(<span class="code-green">"&lt;h3&gt;Hello from Java Servlet&lt;/h3&gt;"</span>);
+    }
+
+    <span class="code-purple">@Override</span>
+    <span class="code-purple">protected void</span> <span class="code-yellow">doPost</span>(
+            HttpServletRequest req,
+            HttpServletResponse resp
+    ) <span class="code-purple">throws</span> ServletException, IOException {
+
+        <span class="code-comment">// TODO Auto-generated method stub</span>
+        <span class="code-comment">// super.doPost(req, resp);</span>
+
+        doGet(req, resp);
+    }
+}</code></pre>
+        </div>
+
+        <div class="lab-results">
+          <div class="result-browser">
+            <div class="result-title"><span>🌐</span><strong>Output dalam Browser</strong></div>
+            <div class="mini-browser-bar">localhost:8080/MyApp/devop/hello</div>
+            <div class="result-output"><h3>Hello from Java Servlet</h3></div>
+            <p>Terhasil daripada <code>out.println(...)</code> dan dihantar melalui HTTP Response.</p>
+          </div>
+          <div class="result-console">
+            <div class="result-title"><span>⌘</span><strong>Output dalam Eclipse Console</strong></div>
+            <pre><span>&gt;</span> Selamat Petang Semua!<i>_</i></pre>
+            <p>Terhasil daripada <code>System.out.println(...)</code>. Pengguna browser tidak melihat mesej ini.</p>
+          </div>
+        </div>
+
+        <div class="code-explanation">
+          <h3>Apa yang berlaku apabila URL Servlet dibuka?</h3>
+          <ol>
+            <li><span>1</span><p>Browser menghantar <strong>GET Request</strong> ke route <code>/devop/hello</code>.</p></li>
+            <li><span>2</span><p>Tomcat membaca <code>@WebServlet</code> dan mencari <strong>HelloServlet</strong>.</p></li>
+            <li><span>3</span><p>Tomcat memanggil <code>doGet(req, resp)</code>.</p></li>
+            <li><span>4</span><p><code>System.out.println()</code> mencetak mesej ke Eclipse Console.</p></li>
+            <li><span>5</span><p><code>resp.getWriter()</code> mendapatkan writer untuk menulis Response.</p></li>
+            <li><span>6</span><p>HTML <code>&lt;h3&gt;Hello from Java Servlet&lt;/h3&gt;</code> dihantar dan dipaparkan oleh browser.</p></li>
+          </ol>
+        </div>
+      </article>
+
+      <div class="callout remember lab-conclusion"><span>✦</span><div><strong>Hasil pembelajaran lab</strong><p>Kita berjaya melihat perbezaan antara <strong>static HTML</strong> dan HTML yang dijana secara dinamik oleh <strong>Servlet</strong>. Kita juga belajar bahawa output browser dan output server console pergi ke tempat yang berbeza.</p></div></div>
+    </section>
+
+    <section id="library" class="content-section observe">
+      <div class="section-heading"><span>07</span><div><p>KOD SIAP GUNA</p><h2>External Library</h2></div></div>
+      <p class="lead"><strong>JAR</strong> ialah pakej Class Java yang boleh digunakan semula. Dalam kelas, library diperoleh melalui MVNRepository dan ditambah pada Eclipse Build Path.</p>
+      <div class="downloaded-files" aria-label="Fail dan perisian yang dimuat turun">
+        <div class="downloaded-title">
+          <span>↓</span>
+          <div><small>RUJUKAN KELAS</small><h3>Fail & perisian yang kita download</h3></div>
+        </div>
+        <div class="downloaded-grid">
+          <article>
+            <span class="file-type">SERVER</span>
+            <div class="file-icon">TC</div>
+            <h4>Apache Tomcat 9</h4>
+            <code>apache-tomcat-9.0.120</code>
+            <p>Web server dan <strong>Servlet Container</strong> yang menjalankan aplikasi <code>MyApp</code>.</p>
+            <mark>✓ Versi disahkan daripada Build Path</mark>
+          </article>
+          <article>
+            <span class="file-type">LIBRARY · JAR</span>
+            <div class="file-icon jar">JAR</div>
+            <h4>JSTL 1.2</h4>
+            <code>jstl-1.2.jar</code>
+            <p>Library <strong>JSP Standard Tag Library</strong> untuk menggunakan tag siap guna dalam halaman JSP.</p>
+            <mark>✓ Dijumpai dalam WEB-INF/lib</mark>
+          </article>
+          <article>
+            <span class="file-type">DEVELOPMENT KIT</span>
+            <div class="file-icon jdk">JDK</div>
+            <h4>Java SDK → JDK 8</h4>
+            <code>JavaSE-1.8</code>
+            <p>Kit pembangunan Java yang menyediakan <code>javac</code>, runtime dan tools untuk membina program.</p>
+            <mark>ℹ Istilah tepat: JDK</mark>
+          </article>
+        </div>
+        <p class="downloaded-note"><strong>Nota:</strong> “Java SDK” ialah nama yang kadangkala digunakan secara umum, tetapi istilah rasmi yang patut kita gunakan ialah <strong>JDK (Java Development Kit)</strong>. Nama fail installer JDK boleh berbeza mengikut vendor dan sistem operasi.</p>
+      </div>
+      <div class="timeline">
+        <div><span>1</span><article><small>DOWNLOAD</small><h3>Dapatkan JAR</h3><p><code>servlet-api.jar</code> datang bersama Tomcat 9; <code>jstl-1.2.jar</code> berada dalam <code>WEB-INF/lib</code>.</p></article></div>
+        <div><span>2</span><article><small>REFERENCE</small><h3>Tambah ke Build Path</h3><p>Eclipse memberitahu compiler lokasi Class luaran agar Import boleh dikenali.</p></article></div>
+        <div><span>3</span><article><small>COMPILE</small><h3>Gunakan API</h3><p>Compiler kini memahami <code>HttpServlet</code>, <code>HttpServletRequest</code> dan Class lain.</p></article></div>
+        <div><span>4</span><article><small>RUNTIME</small><h3>Tomcat menjalankan</h3><p>Tomcat menyediakan Servlet API ketika aplikasi berjalan. Elakkan menyalin <code>servlet-api.jar</code> ke dalam WAR.</p></article></div>
+      </div>
+      <div class="callout correction"><span>✓</span><div><strong>Amalan lebih tepat</strong><p>Untuk projek sebenar, dependency biasanya diurus dengan Maven/Gradle. Bagi latihan manual ini, External JAR dan Build Path membantu memahami asas Classpath.</p></div></div>
+    </section>
+
+    <section id="naming" class="content-section observe">
+      <div class="section-heading"><span>08</span><div><p>KOD KEMAS</p><h2>Naming Convention</h2></div></div>
+      <div class="naming-grid">
+        <article><span>CLASS</span><h3>PascalCase</h3><code>HelloServlet</code><code>UserController</code><p>Setiap perkataan bermula huruf besar.</p></article>
+        <article><span>METHOD</span><h3>camelCase</h3><code>doGet()</code><code>calculateTotal()</code><p>Perkataan pertama huruf kecil.</p></article>
+        <article><span>VARIABLE</span><h3>camelCase</h3><code>userName</code><code>totalPrice</code><p>Nama menerangkan nilai yang disimpan.</p></article>
+        <article><span>CONSTANT</span><h3>UPPER_CASE</h3><code>MAX_USERS</code><code>DEFAULT_PORT</code><p>Huruf besar dan underscore.</p></article>
+        <article><span>PACKAGE</span><h3>lowercase</h3><code>com.app1.devop</code><code>myapp.servlet</code><p>Huruf kecil, biasanya domain terbalik.</p></article>
+      </div>
+    </section>
+
+    <section id="servlet" class="content-section observe">
+      <div class="section-heading"><span>09</span><div><p>JANTUNG APLIKASI WEB</p><h2>Servlet</h2></div></div>
+      <p class="lead"><strong>Servlet</strong> ialah Class Java yang bekerja di server. Ia menerima Request, menjalankan logik dan membina Response.</p>
+      <div class="concept-cards">
+        <div><strong>HttpServlet</strong><p>Base Class yang menyediakan Method HTTP seperti <code>doGet()</code> dan <code>doPost()</code>.</p></div>
+        <div><strong>extends HttpServlet</strong><p><code>HelloServlet</code> mewarisi kebolehan HttpServlet melalui <strong>Inheritance</strong>.</p></div>
+        <div><strong>javax.servlet.http</strong><p>Package Servlet HTTP untuk Tomcat 9. Ia mengandungi Class dan Interface berkaitan web.</p></div>
+      </div>
+      <h3 class="subheading">Lifecycle ringkas</h3>
+      <div class="lifecycle">
+        <div><span>1</span><strong>init()</strong><small>Dipanggil sekali apabila Servlet dimulakan</small></div>
+        <i>→</i><div><span>2</span><strong>service()</strong><small>Mengarahkan Request ke doGet/doPost</small></div>
+        <i>→</i><div><span>3</span><strong>destroy()</strong><small>Dipanggil sekali sebelum Servlet ditamatkan</small></div>
+      </div>
+      <p class="caption">Tomcat mengurus Lifecycle ini. Kita biasanya menulis <code>doGet()</code> atau <code>doPost()</code>, bukan memanggilnya sendiri.</p>
+    </section>
+
+    <section id="http" class="content-section observe">
+      <div class="section-heading"><span>10</span><div><p>KOMUNIKASI WEB</p><h2>GET vs POST</h2></div></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Perkara</th><th><span class="method get">GET</span></th><th><span class="method post">POST</span></th></tr></thead>
+        <tbody>
+          <tr><td>Tujuan biasa</td><td>Mendapatkan/membaca data</td><td>Menghantar atau mencipta data</td></tr>
+          <tr><td>Data</td><td>Biasanya pada URL sebagai query parameter</td><td>Biasanya dalam Request body</td></tr>
+          <tr><td>Bookmark</td><td>Boleh di-bookmark</td><td>Tidak seperti GET</td></tr>
+          <tr><td>Ulang tanpa kesan</td><td>Sepatutnya selamat dan tidak mengubah data</td><td>Boleh menghasilkan perubahan/rekod baharu</td></tr>
+          <tr><td>Contoh</td><td><code>GET /users?id=7</code></td><td><code>POST /users</code></td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warning"><span>!</span><div><strong>Jangan salah faham</strong><p>POST bukan automatik “secure”. Gunakan HTTPS untuk melindungi data semasa penghantaran. Password juga tidak patut dimasukkan dalam URL GET.</p></div></div>
+    </section>
+
+    <section id="methods" class="content-section observe">
+      <div class="section-heading"><span>11</span><div><p>METHOD UTAMA</p><h2>doGet() & doPost()</h2></div></div>
+      <div class="code-block">
+        <div class="code-head"><span>HelloServlet.java</span><button class="copy-button" type="button">Copy</button></div>
+        <pre><code><span class="code-purple">protected void</span> <span class="code-yellow">doGet</span>(
+    HttpServletRequest request,
+    HttpServletResponse response
+) <span class="code-purple">throws</span> ServletException, IOException {
+    response.setContentType(<span class="code-green">"text/html;charset=UTF-8"</span>);
+    response.getWriter().println(<span class="code-green">"&lt;h3&gt;Hello&lt;/h3&gt;"</span>);
+}
+
+<span class="code-purple">protected void</span> <span class="code-yellow">doPost</span>(
+    HttpServletRequest request,
+    HttpServletResponse response
+) <span class="code-purple">throws</span> ServletException, IOException {
+    doGet(request, response);
+}</code></pre>
+      </div>
+      <div class="parameter-grid">
+        <div><span>MASUK</span><h3>HttpServletRequest request</h3><p>“Sampul surat masuk” daripada browser. Digunakan untuk membaca parameter, header, session dan maklumat Request.</p><code>request.getParameter("name")</code></div>
+        <div><span>KELUAR</span><h3>HttpServletResponse response</h3><p>“Sampul surat balasan” kepada browser. Digunakan untuk menetapkan content type, status dan menulis output.</p><code>response.getWriter()</code></div>
+      </div>
+      <div class="callout correction"><span>✓</span><div><strong>Nama parameter fleksibel</strong><p><code>req/resp</code> dan <code>request/response</code> sama-sama sah. Nama panjang lebih mudah dibaca oleh beginner.</p></div></div>
+    </section>
+
+    <section id="oop" class="content-section observe">
+      <div class="section-heading"><span>12</span><div><p>CARA JAVA BERFIKIR</p><h2>Asas Object-Oriented Programming</h2></div></div>
+      <div class="analogy">
+        <div class="blueprint"><span>PELAN</span><strong>Class Kereta</strong><p>warna, model<br>startEngine()</p></div>
+        <div class="analogy-arrow">→<small>new Kereta()</small></div>
+        <div class="object-car"><span>OBJEK SEBENAR</span><strong>keretaSaya</strong><p>Merah · Myvi</p></div>
+      </div>
+      <div class="oop-grid">
+        <article><strong>Class</strong><p>Pelan yang menerangkan data dan tingkah laku. Contoh: pelan rumah.</p></article>
+        <article><strong>Object</strong><p>Instance sebenar yang dicipta daripada Class. Contoh: rumah yang sudah dibina.</p></article>
+        <article><strong>Method</strong><p>Arahan/tingkah laku dalam Class. Contoh: pintu boleh <code>buka()</code>.</p></article>
+        <article><strong>Constructor</strong><p>Method khas untuk menyediakan Object baharu ketika ia dicipta.</p></article>
+        <article><strong>Inheritance</strong><p>Class anak mewarisi ciri Class induk. <code>HelloServlet extends HttpServlet</code>.</p></article>
+        <article><strong>Encapsulation</strong><p>Melindungi data dalaman dan memberi akses terkawal—seperti ATM menyembunyikan proses bank.</p></article>
+      </div>
+    </section>
+
+    <section id="summary" class="content-section observe">
+      <div class="section-heading"><span>13</span><div><p>ULANG KAJI</p><h2>Perkara Penting Hari Ini</h2></div></div>
+      <div class="checklist glass-card" id="checklist">
+        <label><input type="checkbox"><span>Java source code disimpan sebagai <code>.java</code>.</span></label>
+        <label><input type="checkbox"><span><code>javac</code> menukarkan <code>.java</code> kepada bytecode <code>.class</code>.</span></label>
+        <label><input type="checkbox"><span>JVM menjalankan bytecode Java.</span></label>
+        <label><input type="checkbox"><span>JDK diperlukan untuk membangunkan aplikasi Java.</span></label>
+        <label><input type="checkbox"><span>Tomcat 9 ialah Servlet Container dan menggunakan <code>javax.servlet</code>.</span></label>
+        <label><input type="checkbox"><span>Servlet menerima Request dan menghasilkan Response.</span></label>
+        <label><input type="checkbox"><span><code>doGet()</code> mengendalikan GET; <code>doPost()</code> mengendalikan POST.</span></label>
+        <label><input type="checkbox"><span><code>WEB-INF</code> tidak boleh diakses terus melalui browser.</span></label>
+        <label><input type="checkbox"><span>JAR mengandungi Class/resource Java yang boleh digunakan semula.</span></label>
+        <label><input type="checkbox"><span>Class guna PascalCase; Method dan Variable guna camelCase.</span></label>
+      </div>
+    </section>
+
+    <section id="flashcards" class="content-section observe">
+      <div class="section-heading"><span>14</span><div><p>UJI INGATAN</p><h2>Flash Card</h2></div></div>
+      <p class="lead">Klik kad untuk lihat jawapan. Gunakan butang untuk bergerak ke soalan seterusnya.</p>
+      <div class="flashcard-area">
+        <button class="flash-nav prev" type="button" aria-label="Kad sebelumnya">←</button>
+        <button class="flashcard" id="flashcard" type="button" aria-label="Pusing flash card">
+          <span class="flash-face flash-front"><small>SOALAN</small><strong id="flash-question">Apa itu javac?</strong><em>Klik untuk lihat jawapan</em></span>
+          <span class="flash-face flash-back"><small>JAWAPAN</small><strong id="flash-answer">Compiler yang menukar fail .java menjadi .class.</strong><em>Klik untuk kembali</em></span>
+        </button>
+        <button class="flash-nav next" type="button" aria-label="Kad seterusnya">→</button>
+      </div>
+      <div class="flash-counter"><span id="flash-index">1</span> / <span id="flash-total">8</span></div>
+    </section>
+
+    <section id="quiz" class="content-section observe">
+      <div class="section-heading"><span>15</span><div><p>SEMAK FAHAM</p><h2>Mini Quiz Day 1</h2></div></div>
+      <div class="quiz-shell glass-card">
+        <div class="quiz-top"><span>10 soalan objektif</span><strong id="quiz-score">Belum dijawab</strong></div>
+        <form id="quiz-form"></form>
+        <div class="quiz-actions">
+          <button class="button primary" id="check-quiz" type="button">Semak jawapan</button>
+          <button class="button secondary" id="reset-quiz" type="button">Cuba semula</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="day-2" class="coming-section observe">
+      <div><span>02</span><p>DAY 2</p><h2>Perjalanan diteruskan.</h2><small>COMING SOON · Ruang telah disediakan untuk nota kelas seterusnya.</small></div>
+    </section>
+    <section id="day-3" class="coming-section alternate observe">
+      <div><span>03</span><p>DAY 3</p><h2>Daripada asas kepada aplikasi.</h2><small>COMING SOON · Kandungan akan ditambah selepas sesi ketiga.</small></div>
+    </section>
+
+    <section id="resources" class="content-section observe">
+      <div class="section-heading"><span>R</span><div><p>RUJUKAN DIPERCAYAI</p><h2>Resources</h2></div></div>
+      <div class="resource-grid">
+        <a href="https://docs.oracle.com/en/java/" target="_blank" rel="noopener"><span>OR</span><strong>Oracle Java Documentation</strong><small>Dokumentasi rasmi Java ↗</small></a>
+        <a href="https://tomcat.apache.org/" target="_blank" rel="noopener"><span>TC</span><strong>Apache Tomcat</strong><small>Server & Servlet Container ↗</small></a>
+        <a href="https://mvnrepository.com/" target="_blank" rel="noopener"><span>MV</span><strong>MVN Repository</strong><small>Carian Java libraries ↗</small></a>
+        <a href="https://www.eclipse.org/ide/" target="_blank" rel="noopener"><span>EC</span><strong>Eclipse IDE</strong><small>IDE yang digunakan kelas ↗</small></a>
+        <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener"><span>IJ</span><strong>IntelliJ IDEA</strong><small>IDE Java oleh JetBrains ↗</small></a>
+        <a href="https://www.w3schools.com/java/" target="_blank" rel="noopener"><span>W3</span><strong>W3Schools Java</strong><small>Tutorial beginner ↗</small></a>
+        <a href="https://www.baeldung.com/" target="_blank" rel="noopener"><span>BA</span><strong>Baeldung</strong><small>Artikel Java praktikal ↗</small></a>
+      </div>
+    </section>
+
+    <section id="downloads" class="download-section observe">
+      <div><p class="overline">DOWNLOADS</p><h2>Simpan nota.<br>Ulang kaji bila-bila.</h2><p>Cheat sheet telah direka dalam format mesra cetak. Pilih “Save as PDF” dalam dialog print jika mahu simpan secara digital.</p></div>
+      <button class="button light" id="print-sheet" type="button">⤓ Print Cheat Sheet</button>
+    </section>
+
+    <section id="about" class="content-section about observe">
+      <div><p class="overline">ABOUT</p><h2>Nota yang membesar<br>bersama pembelajaran.</h2></div>
+      <div><p>Website ini dibina daripada latihan sebenar projek <strong>MyApp</strong> untuk kursus tiga hari. Ia bukan pengganti dokumentasi rasmi, tetapi jambatan untuk beginner memahami konsep sebelum membaca rujukan yang lebih teknikal.</p><p>Day 2 dan Day 3 boleh ditambah tanpa mengubah asas reka bentuk atau fungsi website.</p></div>
+    </section>
+
+    <section class="print-cheatsheet" aria-label="Cheat sheet untuk dicetak">
+      <h1>Java Web Day 1 — Cheat Sheet</h1>
+      <p>Asas Pembangunan Aplikasi Web Menggunakan Java · Projek MyApp · Tomcat 9</p>
+      <div class="cheat-columns">
+        <article><h2>Compilation</h2><p><code>.java → javac → .class → JVM</code></p><p><b>JDK</b>: tools pembangunan<br><b>JRE</b>: runtime<br><b>JVM</b>: jalankan bytecode</p></article>
+        <article><h2>Servlet</h2><p>Class Java di server yang menerima Request dan menghasilkan Response.</p><p>Tomcat 9: <code>javax.servlet.*</code><br>Tomcat 10+: <code>jakarta.servlet.*</code></p></article>
+        <article><h2>HTTP</h2><p><b>GET</b>: baca data; parameter lazimnya pada URL.<br><b>POST</b>: hantar/cipta data; data lazimnya dalam body.</p></article>
+        <article><h2>Struktur MyApp</h2><p><code>src/main/java</code>: source Java<br><code>src/main/webapp</code>: web root<br><code>WEB-INF</code>: dilindungi<br><code>WEB-INF/lib</code>: JAR</p></article>
+        <article><h2>Naming</h2><p>Class: <code>PascalCase</code><br>Method/Variable: <code>camelCase</code><br>Constant: <code>UPPER_CASE</code><br>Package: <code>lowercase</code></p></article>
+        <article><h2>OOP</h2><p><b>Class</b>: pelan · <b>Object</b>: instance · <b>Method</b>: tingkah laku · <b>Constructor</b>: setup Object · <b>Inheritance</b>: pewarisan · <b>Encapsulation</b>: lindungi data</p></article>
+      </div>
+      <pre>doGet(HttpServletRequest request, HttpServletResponse response)
+doPost(HttpServletRequest request, HttpServletResponse response)</pre>
+      <footer>kursus_java · Day 1 / 3</footer>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="brand"><span class="brand-mark">{J}</span><span><strong>Kursus Java</strong><small>Belajar · Praktik · Faham</small></span></div>
+    <p>Dibina untuk perkongsian ilmu · Day 1 of 3</p>
+    <a href="#home">Kembali ke atas ↑</a>
+  </footer>
+
+  <button id="back-to-top" type="button" aria-label="Kembali ke atas">↑</button>
+
+  <dialog id="search-dialog">
+    <form method="dialog" class="search-modal">
+      <div class="search-modal-head"><span>⌕</span><input id="global-search" type="search" placeholder="Cari istilah Java..." autocomplete="off" aria-label="Cari seluruh nota"><kbd>Esc</kbd></div>
+      <div id="search-results"><p class="search-hint">Cuba cari “Servlet”, “JVM”, “Tomcat” atau “GET”.</p></div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
