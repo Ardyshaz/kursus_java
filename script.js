@@ -125,20 +125,85 @@ quizData.forEach((item, questionIndex) => {
 });
 $("#check-quiz").addEventListener("click", () => {
   let score = 0;
+  let unanswered = 0;
+  const correctAnswers = [];
+  const wrongAnswers = [];
+
   $$(".quiz-question").forEach((question, index) => {
     const selected = $(`input[name="q${index}"]:checked`);
     const correct = selected && Number(selected.value) === quizData[index][2];
-    if (correct) score++;
-    question.classList.remove("correct", "wrong");
-    question.classList.add("revealed", correct ? "correct" : "wrong");
-    question.querySelector(".answer-note").textContent = `${correct ? "✓ Betul." : "✕ Jawapan tepat:"} ${quizData[index][3]}`;
+    const correctText = quizData[index][1][quizData[index][2]];
+    const selectedText = selected ? quizData[index][1][Number(selected.value)] : "Tidak dijawab";
+
+    question.classList.remove("correct", "wrong", "unanswered");
+    question.classList.add("revealed");
+    $$(".quiz-options label", question).forEach((label, answerIndex) => {
+      label.classList.toggle("correct-answer", answerIndex === quizData[index][2]);
+    });
+
+    if (correct) {
+      score++;
+      question.classList.add("correct");
+      question.querySelector(".answer-note").textContent = `✓ Betul — ${quizData[index][3]}`;
+      correctAnswers.push({ number: index + 1, question: quizData[index][0], answer: correctText });
+    } else {
+      if (!selected) {
+        unanswered++;
+        question.classList.add("unanswered");
+      } else {
+        question.classList.add("wrong");
+      }
+      question.querySelector(".answer-note").textContent =
+        `${selected ? `✕ Jawapan anda: ${selectedText}.` : "− Soalan tidak dijawab."} Jawapan betul: ${correctText}. ${quizData[index][3]}`;
+      wrongAnswers.push({
+        number: index + 1,
+        question: quizData[index][0],
+        selected: selectedText,
+        answer: correctText
+      });
+    }
   });
-  $("#quiz-score").textContent = `${score} / ${quizData.length} betul`;
-  $("#quiz-score").scrollIntoView({ behavior: "smooth", block: "center" });
+
+  const wrong = quizData.length - score - unanswered;
+  const percent = Math.round((score / quizData.length) * 100);
+  const message = percent === 100 ? "Cemerlang—semua betul!" :
+    percent >= 80 ? "Sangat baik!" :
+    percent >= 60 ? "Baik, ulang sedikit lagi." :
+    "Mari ulang kaji semula.";
+  const description = percent === 100
+    ? "Anda sudah memahami semua topik utama Day 1."
+    : `Semak ${wrongAnswers.length} perkara di bawah, kemudian cuba semula.`;
+
+  $("#quiz-score").textContent = `${score}/${quizData.length} · ${percent}%`;
+  $("#correct-count").textContent = score;
+  $("#wrong-count").textContent = wrong;
+  $("#empty-count").textContent = unanswered;
+  $("#score-percent").textContent = `${percent}%`;
+  $("#score-message").textContent = message;
+  $("#score-description").textContent = description;
+  $("#score-ring").style.setProperty("--score", `${percent * 3.6}deg`);
+
+  $("#correct-list").innerHTML = correctAnswers.length
+    ? correctAnswers.map(item =>
+      `<li><strong>Soalan ${item.number}: ${item.question}</strong>Jawapan anda: ${item.answer}</li>`
+    ).join("")
+    : '<li class="empty-list">Belum ada jawapan yang betul.</li>';
+  $("#wrong-list").innerHTML = wrongAnswers.length
+    ? wrongAnswers.map(item =>
+      `<li><strong>Soalan ${item.number}: ${item.question}</strong>Anda jawab: ${item.selected}<br>Jawapan betul: ${item.answer}</li>`
+    ).join("")
+    : '<li class="empty-list">Tiada kesalahan—syabas!</li>';
+
+  $("#quiz-report").hidden = false;
+  $("#quiz-report").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 $("#reset-quiz").addEventListener("click", () => {
   quizForm.reset();
-  $$(".quiz-question").forEach(question => question.classList.remove("revealed", "correct", "wrong"));
+  $$(".quiz-question").forEach(question => {
+    question.classList.remove("revealed", "correct", "wrong", "unanswered");
+    $$(".quiz-options label", question).forEach(label => label.classList.remove("correct-answer"));
+  });
+  $("#quiz-report").hidden = true;
   $("#quiz-score").textContent = "Belum dijawab";
 });
 
@@ -152,7 +217,7 @@ const searchIndex = [
   { title: "Struktur MyApp", text: "src main java webapp WEB-INF lib web.xml", href: "#project" },
   { title: "Hasil Praktikal Lab Day 1", text: "index.html HelloServlet.java Selamat Datang Hello from Java Servlet Eclipse Console", href: "#lab-project" },
   { title: "GET vs POST", text: "Perbandingan HTTP Method", href: "#http" },
-  { title: "Object-Oriented Programming", text: "Class Object Method Constructor Inheritance Encapsulation", href: "#oop" }
+  { title: "Object-Oriented Programming", text: "Class Object Method Constructor Inheritance", href: "#oop" }
 ];
 function openSearch() {
   searchDialog.showModal();

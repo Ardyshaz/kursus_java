@@ -247,6 +247,53 @@
         </div>
       </div>
 
+      <div class="eclipse-gallery">
+        <div class="eclipse-gallery-head">
+          <div><small>SIMULASI BERDASARKAN PROJEK SEBENAR</small><h3>Paparan dalam Eclipse IDE</h3></div>
+          <span>Eclipse · Java 8 · Tomcat 9</span>
+        </div>
+        <div class="eclipse-grid">
+          <figure class="eclipse-shot">
+            <div class="eclipse-titlebar"><span>MyApp - Eclipse IDE</span><i>— □ ×</i></div>
+            <div class="eclipse-tabs"><b>Project Explorer</b><span>HelloServlet.java ×</span></div>
+            <div class="eclipse-workspace">
+              <div class="eclipse-tree">
+                <p>▾ 📁 MyApp</p>
+                <p class="indent-1">▾ 📁 src/main/java</p>
+                <p class="indent-2">▾ 📦 com.app1.devop</p>
+                <p class="indent-3 selected">☕ HelloServlet.java</p>
+                <p class="indent-1">▾ 📁 src/main/webapp</p>
+                <p class="indent-2">🌐 index.html</p>
+                <p class="indent-2">▾ 🔒 WEB-INF</p>
+              </div>
+              <pre class="eclipse-editor"><span class="code-purple">@WebServlet</span>(<span class="code-green">"/devop/hello"</span>)
+<span class="code-purple">public class</span> <span class="code-blue">HelloServlet</span>
+    <span class="code-purple">extends</span> HttpServlet {
+
+  <span class="code-purple">protected void</span> <span class="code-yellow">doGet</span>(...) {
+    System.out.println(
+      <span class="code-green">"Selamat Petang Semua!"</span>);
+  }
+}</pre>
+            </div>
+            <figcaption><strong>Project Explorer + Java Editor</strong><span>Package dan fail Servlet yang dibina semasa lab.</span></figcaption>
+          </figure>
+          <figure class="eclipse-shot">
+            <div class="eclipse-titlebar"><span>MyApp - Eclipse IDE</span><i>— □ ×</i></div>
+            <div class="eclipse-tabs"><b>Console</b><span>Servers</span></div>
+            <div class="eclipse-console">
+              <div class="server-line"><i></i> Tomcat v9.0 Server at localhost [Started]</div>
+              <pre><span>Jul 28, 2026</span> INFO: Server startup
+<b>Selamat Petang Semua!</b>
+<i>_</i></pre>
+            </div>
+            <div class="server-status"><span>Servers</span><strong>Tomcat v9.0 Server at localhost</strong><mark>Started, Synchronized</mark></div>
+            <figcaption><strong>Console + Tomcat Server</strong><span><code>System.out.println()</code> muncul di sini, bukan dalam browser.</span></figcaption>
+          </figure>
+        </div>
+        <p class="visual-disclaimer">Paparan ini ialah ilustrasi semula Eclipse berdasarkan struktur dan output projek <code>MyApp</code>, bukan screenshot raw daripada komputer peserta.</p>
+      </div>
+
       <article class="lab-module">
         <div class="lab-module-head">
           <div><span class="lab-number">01</span><div><small>HTML · FRONT END</small><h3>Halaman Selamat Datang</h3></div></div>
@@ -426,11 +473,46 @@
 
     <section id="servlet" class="content-section observe">
       <div class="section-heading"><span>09</span><div><p>JANTUNG APLIKASI WEB</p><h2>Servlet</h2></div></div>
-      <p class="lead"><strong>Servlet</strong> ialah Class Java yang bekerja di server. Ia menerima Request, menjalankan logik dan membina Response.</p>
+      <p class="lead"><strong>Servlet</strong> ialah Class Java yang bekerja di bahagian server. Browser tidak menjalankan Servlet. Browser hanya menghantar HTTP Request; Tomcat memilih Servlet yang betul, menjalankan Method-nya dan menghantar HTTP Response semula.</p>
       <div class="concept-cards">
         <div><strong>HttpServlet</strong><p>Base Class yang menyediakan Method HTTP seperti <code>doGet()</code> dan <code>doPost()</code>.</p></div>
         <div><strong>extends HttpServlet</strong><p><code>HelloServlet</code> mewarisi kebolehan HttpServlet melalui <strong>Inheritance</strong>.</p></div>
         <div><strong>javax.servlet.http</strong><p>Package Servlet HTTP untuk Tomcat 9. Ia mengandungi Class dan Interface berkaitan web.</p></div>
+      </div>
+      <div class="servlet-journey">
+        <div class="journey-browser"><small>1 · BROWSER</small><strong>GET /MyApp/devop/hello</strong><span>Pengguna membuka URL</span></div>
+        <i>→</i>
+        <div class="journey-tomcat"><small>2 · TOMCAT</small><strong>Cari URL mapping</strong><span>@WebServlet("/devop/hello")</span></div>
+        <i>→</i>
+        <div class="journey-servlet"><small>3 · SERVLET</small><strong>doGet(req, resp)</strong><span>Java memproses Request</span></div>
+        <i>→</i>
+        <div class="journey-response"><small>4 · RESPONSE</small><strong>&lt;h3&gt;Hello...&lt;/h3&gt;</strong><span>Browser melukis HTML</span></div>
+      </div>
+
+      <h3 class="subheading">Kod mana menghasilkan output mana?</h3>
+      <div class="code-output-grid">
+        <article>
+          <div class="mini-code"><code>System.out.println(<br><span>"Selamat Petang Semua!"</span><br>);</code></div>
+          <div class="code-output-arrow">↓</div>
+          <div class="output-destination console-destination"><small>ECLIPSE CONSOLE</small><strong>&gt; Selamat Petang Semua!</strong></div>
+          <p>Digunakan oleh developer untuk melihat log pada server. Ia tidak dihantar kepada pengguna.</p>
+        </article>
+        <article>
+          <div class="mini-code"><code>out.println(<br><span>"&lt;h3&gt;Hello from Java Servlet&lt;/h3&gt;"</span><br>);</code></div>
+          <div class="code-output-arrow">↓</div>
+          <div class="output-destination browser-destination"><small>BROWSER</small><strong>Hello from Java Servlet</strong></div>
+          <p>Ditulis ke dalam HTTP Response, kemudian browser membaca dan memaparkan HTML tersebut.</p>
+        </article>
+      </div>
+
+      <div class="servlet-anatomy">
+        <h3>Bedah satu demi satu</h3>
+        <div><code>@WebServlet("/devop/hello")</code><p><strong>URL mapping.</strong> Seperti alamat rumah yang memberitahu Tomcat Servlet mana patut menerima Request.</p></div>
+        <div><code>extends HttpServlet</code><p><strong>Inheritance.</strong> HelloServlet mendapat keupayaan asas untuk mengendalikan komunikasi HTTP.</p></div>
+        <div><code>HttpServletRequest req</code><p><strong>Maklumat masuk.</strong> Mengandungi URL, HTTP Method, parameter dan maklumat yang dihantar browser.</p></div>
+        <div><code>HttpServletResponse resp</code><p><strong>Jawapan keluar.</strong> Digunakan untuk menentukan jenis kandungan dan menulis hasil kepada browser.</p></div>
+        <div><code>resp.setContentType("text/html")</code><p><strong>Label kandungan.</strong> Memberitahu browser bahawa Response yang diterima ialah HTML.</p></div>
+        <div><code>PrintWriter out = resp.getWriter()</code><p><strong>Alat menulis.</strong> Mendapatkan Object yang boleh menulis teks ke dalam HTTP Response.</p></div>
       </div>
       <h3 class="subheading">Lifecycle ringkas</h3>
       <div class="lifecycle">
@@ -495,7 +577,6 @@
         <article><strong>Method</strong><p>Arahan/tingkah laku dalam Class. Contoh: pintu boleh <code>buka()</code>.</p></article>
         <article><strong>Constructor</strong><p>Method khas untuk menyediakan Object baharu ketika ia dicipta.</p></article>
         <article><strong>Inheritance</strong><p>Class anak mewarisi ciri Class induk. <code>HelloServlet extends HttpServlet</code>.</p></article>
-        <article><strong>Encapsulation</strong><p>Melindungi data dalaman dan memberi akses terkawal—seperti ATM menyembunyikan proses bank.</p></article>
       </div>
     </section>
 
@@ -533,6 +614,21 @@
       <div class="section-heading"><span>15</span><div><p>SEMAK FAHAM</p><h2>Mini Quiz Day 1</h2></div></div>
       <div class="quiz-shell glass-card">
         <div class="quiz-top"><span>10 soalan objektif</span><strong id="quiz-score">Belum dijawab</strong></div>
+        <section class="quiz-report" id="quiz-report" hidden aria-live="polite">
+          <div class="report-hero">
+            <div class="score-ring" id="score-ring"><strong id="score-percent">0%</strong><span>MARKAH</span></div>
+            <div><small>KEPUTUSAN DAY 1</small><h3 id="score-message">Teruskan usaha!</h3><p id="score-description">Jawab semua soalan kemudian klik Semak jawapan.</p></div>
+          </div>
+          <div class="score-cards">
+            <div class="score-correct"><span>✓</span><strong id="correct-count">0</strong><small>Betul</small></div>
+            <div class="score-wrong"><span>×</span><strong id="wrong-count">0</strong><small>Salah</small></div>
+            <div class="score-empty"><span>−</span><strong id="empty-count">0</strong><small>Tidak dijawab</small></div>
+          </div>
+          <div class="answer-breakdown">
+            <div><h4><span class="dot correct-dot"></span> Apa yang betul</h4><ol id="correct-list"></ol></div>
+            <div><h4><span class="dot wrong-dot"></span> Apa yang perlu diperbaiki</h4><ol id="wrong-list"></ol></div>
+          </div>
+        </section>
         <form id="quiz-form"></form>
         <div class="quiz-actions">
           <button class="button primary" id="check-quiz" type="button">Semak jawapan</button>
@@ -580,7 +676,7 @@
         <article><h2>HTTP</h2><p><b>GET</b>: baca data; parameter lazimnya pada URL.<br><b>POST</b>: hantar/cipta data; data lazimnya dalam body.</p></article>
         <article><h2>Struktur MyApp</h2><p><code>src/main/java</code>: source Java<br><code>src/main/webapp</code>: web root<br><code>WEB-INF</code>: dilindungi<br><code>WEB-INF/lib</code>: JAR</p></article>
         <article><h2>Naming</h2><p>Class: <code>PascalCase</code><br>Method/Variable: <code>camelCase</code><br>Constant: <code>UPPER_CASE</code><br>Package: <code>lowercase</code></p></article>
-        <article><h2>OOP</h2><p><b>Class</b>: pelan · <b>Object</b>: instance · <b>Method</b>: tingkah laku · <b>Constructor</b>: setup Object · <b>Inheritance</b>: pewarisan · <b>Encapsulation</b>: lindungi data</p></article>
+        <article><h2>OOP</h2><p><b>Class</b>: pelan · <b>Object</b>: instance · <b>Method</b>: tingkah laku · <b>Constructor</b>: setup Object · <b>Inheritance</b>: pewarisan</p></article>
       </div>
       <pre>doGet(HttpServletRequest request, HttpServletResponse response)
 doPost(HttpServletRequest request, HttpServletResponse response)</pre>
