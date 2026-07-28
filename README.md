@@ -92,6 +92,7 @@ kursus_java/
 ├── index.html       # Kandungan nota dan struktur halaman
 ├── styles.css       # Warna, layout, responsive dan animation
 ├── script.js        # Quiz, search, flash card dan interaksi
+├── downloads/       # PDF nota yang boleh dimuat turun
 ├── version.json     # Nombor release untuk auto-refresh
 └── README.md        # Penerangan dan panduan contribution
 ```
@@ -103,6 +104,7 @@ Panduan memilih fail:
 | Tambah nota Day 2/Day 3 | `index.html` |
 | Tukar reka bentuk atau responsive layout | `styles.css` |
 | Tambah quiz, flash card atau interaksi | `script.js` |
+| Kemas kini PDF nota | `downloads/` |
 | Terbitkan release baharu | `version.json`, `script.js`, `index.html` |
 | Baiki panduan projek | `README.md` |
 

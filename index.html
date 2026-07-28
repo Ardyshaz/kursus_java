@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2026.07.28.2">
+  <link rel="stylesheet" href="styles.css?v=2026.07.28.3">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Terus ke kandungan</a>
@@ -50,6 +50,7 @@
       <a href="#tomcat">Apache Tomcat</a>
       <a href="#project">Projek Kelas</a>
       <a href="#lab-project">Hasil Praktikal Lab</a>
+      <a href="#playground">Try It Yourself</a>
       <a href="#library">External Library</a>
       <a href="#naming">Naming Convention</a>
       <a href="#servlet">Servlet</a>
@@ -435,6 +436,106 @@
       <div class="callout remember lab-conclusion"><span>✦</span><div><strong>Hasil pembelajaran lab</strong><p>Kita berjaya melihat perbezaan antara <strong>static HTML</strong> dan HTML yang dijana secara dinamik oleh <strong>Servlet</strong>. Kita juga belajar bahawa output browser dan output server console pergi ke tempat yang berbeza.</p></div></div>
     </section>
 
+    <section id="playground" class="content-section playground-section observe">
+      <div class="section-heading"><span>TRY</span><div><p>BELAJAR SAMBIL MENCUBA</p><h2>Try It Yourself</h2></div></div>
+      <p class="lead">Ubah code di sebelah kiri, tekan <strong>Run Code</strong> dan lihat hasilnya di sebelah kanan. Jangan takut rosakkan apa-apa—perubahan hanya berlaku dalam browser anda.</p>
+
+      <div class="playground-notice">
+        <span>i</span>
+        <p><strong>Apa yang benar-benar berjalan?</strong> HTML boleh dijalankan terus oleh browser. Java Servlet memerlukan JDK dan Tomcat, jadi tab Servlet di bawah ialah <strong>simulasi Response</strong> untuk membantu kita faham hubungan code dan output—bukan Java compiler sebenar.</p>
+      </div>
+
+      <div class="playground-shell">
+        <div class="playground-tabs" role="tablist" aria-label="Pilih latihan code">
+          <button class="playground-tab active" type="button" role="tab" aria-selected="true" data-playground="html">
+            <span>HTML</span> Halaman Selamat Datang
+          </button>
+          <button class="playground-tab" type="button" role="tab" aria-selected="false" data-playground="servlet">
+            <span>JAVA</span> Servlet Response Simulator
+          </button>
+        </div>
+
+        <div class="playground-panel active" id="playground-html" role="tabpanel">
+          <div class="editor-toolbar">
+            <div><span class="editor-dot red"></span><span class="editor-dot yellow"></span><span class="editor-dot green"></span><strong>index.html</strong></div>
+            <div class="editor-actions">
+              <button class="editor-button reset-example" type="button" data-target="html">Reset</button>
+              <button class="editor-button copy-editor" type="button" data-editor="html-editor">Copy</button>
+              <button class="editor-button run" id="run-html" type="button">▶ Run Code</button>
+            </div>
+          </div>
+          <div class="playground-grid">
+            <div class="editor-pane">
+              <div class="pane-label"><span>CODE</span><small>Taip atau ubah HTML di sini</small></div>
+              <textarea id="html-editor" class="live-editor" spellcheck="false" aria-label="HTML code editor"><!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SELAMAT DATANG</title>
+</head>
+<body>
+  <h1>SELAMAT DATANG KE KURSUS JAVA</h1>
+  <p>Kita sama-sama belajar!</p>
+</body>
+</html></textarea>
+            </div>
+            <div class="output-pane">
+              <div class="pane-label"><span>OUTPUT</span><small>Hasil dalam browser</small></div>
+              <iframe id="html-output" title="Output HTML playground" sandbox=""></iframe>
+            </div>
+          </div>
+          <div class="try-challenges">
+            <strong>Cuba sendiri:</strong>
+            <button type="button" data-insert-html="<h2>Ini tajuk baharu</h2>">Tambah tajuk</button>
+            <button type="button" data-insert-html="<button>Klik saya</button>">Tambah button</button>
+            <button type="button" data-insert-html="<p style='color: purple;'>Teks warna ungu</p>">Tukar warna</button>
+          </div>
+        </div>
+
+        <div class="playground-panel" id="playground-servlet" role="tabpanel" hidden>
+          <div class="editor-toolbar">
+            <div><span class="editor-dot red"></span><span class="editor-dot yellow"></span><span class="editor-dot green"></span><strong>HelloServlet.java</strong></div>
+            <div class="editor-actions">
+              <button class="editor-button reset-example" type="button" data-target="servlet">Reset</button>
+              <button class="editor-button copy-editor" type="button" data-editor="servlet-editor">Copy</button>
+              <button class="editor-button run" id="run-servlet" type="button">▶ Simulate Response</button>
+            </div>
+          </div>
+          <div class="playground-grid">
+            <div class="editor-pane">
+              <div class="pane-label"><span>JAVA CODE</span><small>Ubah teks dalam out.println()</small></div>
+              <textarea id="servlet-editor" class="live-editor java-editor" spellcheck="false" aria-label="Servlet code simulator">System.out.println("Selamat Petang Semua!");
+
+resp.setContentType("text/html");
+PrintWriter out = resp.getWriter();
+
+out.println("<h1>Hello from Java Servlet</h1>");
+out.println("<p>Saya sedang belajar Servlet.</p>");</textarea>
+            </div>
+            <div class="output-pane servlet-output-wrap">
+              <div class="pane-label"><span>HTTP RESPONSE</span><small>Simulasi output browser</small></div>
+              <iframe id="servlet-output" title="Simulasi output Servlet" sandbox=""></iframe>
+              <div class="simulated-console">
+                <span>ECLIPSE CONSOLE</span>
+                <pre id="servlet-console">&gt; Selamat Petang Semua!</pre>
+              </div>
+            </div>
+          </div>
+          <div class="simulator-status" id="simulator-status"><span></span> Simulator bersedia. Tekan Simulate Response.</div>
+        </div>
+      </div>
+
+      <div class="learning-path">
+        <div><span>1</span><p><strong>Baca contoh</strong>Lihat code asal dahulu.</p></div>
+        <i>→</i>
+        <div><span>2</span><p><strong>Ubah sedikit</strong>Tukar tajuk atau tambah tag.</p></div>
+        <i>→</i>
+        <div><span>3</span><p><strong>Run Code</strong>Lihat apa yang berubah.</p></div>
+        <i>→</i>
+        <div><span>4</span><p><strong>Cuba lagi</strong>Belajar melalui eksperimen.</p></div>
+      </div>
+    </section>
+
     <section id="library" class="content-section observe">
       <div class="section-heading"><span>07</span><div><p>KOD SIAP GUNA</p><h2>External Library</h2></div></div>
       <p class="lead"><strong>JAR</strong> ialah pakej Class Java yang boleh digunakan semula. Dalam kelas, library diperoleh melalui MVNRepository dan ditambah pada Eclipse Build Path.</p>
@@ -679,7 +780,13 @@
 
     <section id="downloads" class="download-section observe">
       <div><p class="overline">DOWNLOADS</p><h2>Simpan nota.<br>Ulang kaji bila-bila.</h2><p>Cheat sheet telah direka dalam format mesra cetak. Pilih “Save as PDF” dalam dialog print jika mahu simpan secara digital.</p></div>
-      <button class="button light" id="print-sheet" type="button">⤓ Print Cheat Sheet</button>
+      <div class="download-actions">
+        <a class="button light pdf-download" href="downloads/Nota_Ringkas_Java_Web_Day_1.pdf" download>
+          <span class="pdf-icon">PDF</span>
+          <span><strong>Download Nota Day 1</strong><small>9 halaman · PDF</small></span>
+        </a>
+        <button class="button outline-light" id="print-sheet" type="button">Print Cheat Sheet</button>
+      </div>
     </section>
 
     <section id="about" class="content-section about observe">
@@ -719,6 +826,6 @@ doPost(HttpServletRequest request, HttpServletResponse response)</pre>
     </form>
   </dialog>
 
-  <script src="script.js?v=2026.07.28.2"></script>
+  <script src="script.js?v=2026.07.28.3"></script>
 </body>
 </html>

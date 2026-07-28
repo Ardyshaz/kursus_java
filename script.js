@@ -1,6 +1,6 @@
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
-const APP_VERSION = "2026.07.28.2";
+const APP_VERSION = "2026.07.28.3";
 
 async function checkForFreshVersion() {
   try {
@@ -273,6 +273,111 @@ globalSearch.addEventListener("input", () => {
 searchDialog.addEventListener("click", event => {
   if (event.target === searchDialog) searchDialog.close();
 });
+
+const htmlExample = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SELAMAT DATANG</title>
+</head>
+<body>
+  <h1>SELAMAT DATANG KE KURSUS JAVA</h1>
+  <p>Kita sama-sama belajar!</p>
+</body>
+</html>`;
+
+const servletExample = `System.out.println("Selamat Petang Semua!");
+
+resp.setContentType("text/html");
+PrintWriter out = resp.getWriter();
+
+out.println("<h1>Hello from Java Servlet</h1>");
+out.println("<p>Saya sedang belajar Servlet.</p>");`;
+
+function renderHtmlPlayground() {
+  $("#html-output").srcdoc = $("#html-editor").value;
+}
+
+function decodeJavaString(value) {
+  try {
+    return JSON.parse(`"${value}"`);
+  } catch {
+    return value.replaceAll('\\"', '"').replaceAll("\\n", "\n").replaceAll("\\t", "\t");
+  }
+}
+
+function renderServletSimulator() {
+  const code = $("#servlet-editor").value;
+  const responseMatches = [...code.matchAll(/(?:^|\s)out\.println\s*\(\s*"((?:\\.|[^"\\])*)"\s*\)\s*;/g)];
+  const consoleMatches = [...code.matchAll(/System\.out\.println\s*\(\s*"((?:\\.|[^"\\])*)"\s*\)\s*;/g)];
+  const status = $("#simulator-status");
+
+  if (!responseMatches.length) {
+    $("#servlet-output").srcdoc = "<p style='font-family: sans-serif; color: #b4232d;'>Tiada out.println(\"...\") dijumpai.</p>";
+    status.classList.add("error");
+    status.lastChild.textContent = " Simulator tidak menemui out.println(). Semak semula code.";
+  } else {
+    const responseHtml = responseMatches.map(match => decodeJavaString(match[1])).join("\n");
+    $("#servlet-output").srcdoc = responseHtml;
+    status.classList.remove("error");
+    status.lastChild.textContent = ` ${responseMatches.length} baris Response dihantar kepada browser.`;
+  }
+
+  $("#servlet-console").textContent = consoleMatches.length
+    ? consoleMatches.map(match => `> ${decodeJavaString(match[1])}`).join("\n")
+    : "> Tiada System.out.println()";
+}
+
+$$(".playground-tab").forEach(tab => tab.addEventListener("click", () => {
+  const selected = tab.dataset.playground;
+  $$(".playground-tab").forEach(item => {
+    const active = item === tab;
+    item.classList.toggle("active", active);
+    item.setAttribute("aria-selected", active);
+  });
+  $$(".playground-panel").forEach(panel => {
+    const active = panel.id === `playground-${selected}`;
+    panel.classList.toggle("active", active);
+    panel.hidden = !active;
+  });
+}));
+
+$("#run-html").addEventListener("click", renderHtmlPlayground);
+$("#run-servlet").addEventListener("click", renderServletSimulator);
+
+$$(".reset-example").forEach(button => button.addEventListener("click", () => {
+  if (button.dataset.target === "html") {
+    $("#html-editor").value = htmlExample;
+    renderHtmlPlayground();
+  } else {
+    $("#servlet-editor").value = servletExample;
+    renderServletSimulator();
+  }
+}));
+
+$$(".copy-editor").forEach(button => button.addEventListener("click", async () => {
+  const editor = document.getElementById(button.dataset.editor);
+  try {
+    await navigator.clipboard.writeText(editor.value);
+    button.textContent = "Copied ✓";
+  } catch {
+    editor.select();
+    button.textContent = "Tekan Ctrl+C";
+  }
+  setTimeout(() => button.textContent = "Copy", 1400);
+}));
+
+$$("[data-insert-html]").forEach(button => button.addEventListener("click", () => {
+  const editor = $("#html-editor");
+  const snippet = button.dataset.insertHtml;
+  editor.value = editor.value.includes("</body>")
+    ? editor.value.replace("</body>", `  ${snippet}\n</body>`)
+    : `${editor.value}\n${snippet}`;
+  renderHtmlPlayground();
+}));
+
+renderHtmlPlayground();
+renderServletSimulator();
 
 $("#print-sheet").addEventListener("click", () => window.print());
 
