@@ -1,6 +1,6 @@
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
-const APP_VERSION = "2026.07.28.1";
+const APP_VERSION = "2026.07.28.2";
 
 async function checkForFreshVersion() {
   try {
@@ -109,7 +109,9 @@ $$(".copy-button").forEach(button => button.addEventListener("click", async () =
 
 const flashcards = [
   ["Apa itu javac?", "Compiler yang menukar fail .java menjadi .class."],
-  ["Apakah tugas JVM?", "Membaca dan menjalankan Java bytecode dalam fail .class."],
+  ["JDK stand for apa?", "Java Development Kit — kit lengkap untuk membina dan menjalankan program Java."],
+  ["JRE stand for apa?", "Java Runtime Environment — persekitaran yang menyediakan JVM dan libraries untuk menjalankan Java."],
+  ["JVM stand for apa?", "Java Virtual Machine — enjin yang membaca dan menjalankan Java bytecode dalam fail .class."],
   ["Apa itu Servlet?", "Class Java di server yang menerima Request dan menghasilkan Response."],
   ["Tomcat 9 menggunakan javax atau jakarta?", "Tomcat 9 menggunakan javax.servlet. Tomcat 10+ menggunakan jakarta.servlet."],
   ["Apa fungsi WEB-INF?", "Menyimpan konfigurasi, Class dan library yang dilindungi daripada akses terus browser."],

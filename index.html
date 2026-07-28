@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2026.07.28.1">
+  <link rel="stylesheet" href="styles.css?v=2026.07.28.2">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Terus ke kandungan</a>
@@ -125,12 +125,32 @@
         <div class="flow-node dark"><span>03</span><strong>JVM</strong><small>Jalankan program</small></div>
       </div>
       <div class="comparison-strip">
-        <div><strong>JDK</strong><p>Kotak peralatan lengkap untuk developer. Ada <code>javac</code>, tools dan runtime.</p></div>
-        <div><strong>JRE</strong><p>Persekitaran untuk menjalankan aplikasi Java; konsep ini kini biasanya dibekalkan bersama JDK/runtime khusus.</p></div>
-        <div><strong>JVM</strong><p>“Enjin” yang membaca dan menjalankan bytecode <code>.class</code>.</p></div>
-        <div><strong>javac</strong><p><strong>Java compiler</strong> yang menukar <code>.java</code> kepada <code>.class</code>.</p></div>
+        <div><strong>JDK</strong><small>Java Development Kit</small><p>Kit lengkap untuk <em>membina</em> program Java. Mengandungi <code>javac</code>, Java runtime dan tools pembangunan.</p></div>
+        <div><strong>JRE</strong><small>Java Runtime Environment</small><p>Persekitaran yang diperlukan untuk <em>menjalankan</em> program Java. Mengandungi JVM dan Java class libraries.</p></div>
+        <div><strong>JVM</strong><small>Java Virtual Machine</small><p>“Mesin maya” atau enjin di dalam JRE yang membaca dan menjalankan bytecode <code>.class</code>.</p></div>
+        <div><strong>javac</strong><small>Java compiler command</small><p>Bukan singkatan. Ini nama command compiler dalam JDK yang menukar <code>.java</code> kepada <code>.class</code>.</p></div>
+      </div>
+      <div class="jdk-relationship">
+        <div class="jdk-box">
+          <span>JDK · JAVA DEVELOPMENT KIT</span>
+          <strong>Untuk bina + jalankan</strong>
+          <div class="jre-box">
+            <span>JRE · JAVA RUNTIME ENVIRONMENT</span>
+            <strong>Untuk jalankan</strong>
+            <div class="jvm-box"><span>JVM · JAVA VIRTUAL MACHINE</span><strong>Jalankan bytecode</strong></div>
+            <small>+ Java class libraries</small>
+          </div>
+          <small>+ javac compiler + development tools</small>
+        </div>
+        <div class="relationship-notes">
+          <h3>Cara paling mudah ingat</h3>
+          <p><b>Mahu menulis dan compile code?</b><br>Gunakan <strong>JDK</strong>.</p>
+          <p><b>Mahu menjalankan aplikasi?</b><br>Perlu Java <strong>runtime</strong>, yang mengandungi <strong>JVM</strong>.</p>
+          <p><b>Siapa jalankan fail .class?</b><br><strong>JVM</strong>.</p>
+        </div>
       </div>
       <div class="callout correction"><span>✓</span><div><strong>Pembetulan istilah</strong><p>Ejaan tepat ialah <code>javac</code> (huruf kecil), bukan “java c”. Arahan <code>java</code> pula digunakan untuk menjalankan program.</p></div></div>
+      <div class="callout remember"><span>✦</span><div><strong>Nota untuk kursus Java 8</strong><p>Hubungan klasik yang kita belajar ialah <strong>JDK mengandungi JRE, dan JRE mengandungi JVM</strong>. Dalam pengedaran Java moden, JRE berasingan tidak semestinya disediakan; runtime boleh datang bersama JDK atau dibina khas untuk aplikasi. Konsep JRE sebagai persekitaran menjalankan Java masih betul.</p></div></div>
     </section>
 
     <section id="terms" class="content-section observe">
@@ -142,22 +162,22 @@
       </div>
       <div class="accordion" id="term-list">
         <details data-term="java programming language"><summary><span><b>Java</b><small>Programming language</small></span><i>+</i></summary><p>Bahasa untuk menulis arahan komputer. Contoh: <code>System.out.println("Hello");</code>. <strong>Ingat:</strong> fail source menggunakan sambungan <code>.java</code>.</p></details>
-        <details data-term="jdk java development kit"><summary><span><b>JDK</b><small>Java Development Kit</small></span><i>+</i></summary><p>Set lengkap untuk membina aplikasi Java, termasuk compiler dan runtime. Developer perlu memasang JDK.</p></details>
-        <details data-term="jre java runtime environment"><summary><span><b>JRE</b><small>Java Runtime Environment</small></span><i>+</i></summary><p>Komponen yang menyediakan persekitaran untuk aplikasi Java berjalan. Dalam Java moden, runtime biasanya datang melalui JDK atau dibina khusus untuk aplikasi.</p></details>
-        <details data-term="jvm java virtual machine"><summary><span><b>JVM</b><small>Java Virtual Machine</small></span><i>+</i></summary><p>Enjin maya yang menjalankan bytecode. Analogi: <code>.class</code> ialah resipi universal, JVM ialah tukang masak bagi setiap sistem operasi.</p></details>
-        <details data-term="javac compiler"><summary><span><b>javac</b><small>Java compiler</small></span><i>+</i></summary><p>Tool dalam JDK yang menukar source code <code>.java</code> kepada bytecode <code>.class</code>.</p></details>
-        <details data-term="javax namespace package"><summary><span><b>javax</b><small>Namespace Java EE lama</small></span><i>+</i></summary><p>Awalan Package untuk API Java EE terdahulu, contohnya <code>javax.servlet.http</code>. <strong>Tomcat 9 menggunakan javax.</strong></p></details>
-        <details data-term="jakarta namespace package"><summary><span><b>jakarta</b><small>Namespace Jakarta EE baharu</small></span><i>+</i></summary><p>Nama baharu bagi banyak API Java EE selepas berpindah ke Eclipse Foundation. Tomcat 10+ menggunakan <code>jakarta.servlet</code>, jadi Import-nya tidak sama dengan Tomcat 9.</p></details>
-        <details data-term="servlet server request response"><summary><span><b>Servlet</b><small>Java component untuk web</small></span><i>+</i></summary><p>Class Java yang menerima HTTP Request dan menghasilkan HTTP Response. Dalam kelas, <code>HelloServlet</code> ialah contoh Servlet.</p></details>
-        <details data-term="api application programming interface"><summary><span><b>API</b><small>Application Programming Interface</small></span><i>+</i></summary><p>Peraturan dan fungsi siap guna yang membolehkan software berkomunikasi. Servlet API menyediakan Class seperti <code>HttpServlet</code>.</p></details>
-        <details data-term="http protocol web"><summary><span><b>HTTP</b><small>Hypertext Transfer Protocol</small></span><i>+</i></summary><p>Peraturan komunikasi antara browser dan server. Browser menghantar Request; server membalas Response.</p></details>
-        <details data-term="request permintaan browser"><summary><span><b>Request</b><small>Permintaan client</small></span><i>+</i></summary><p>Maklumat yang dihantar browser kepada server—URL, HTTP Method, header dan input pengguna.</p></details>
-        <details data-term="response jawapan server"><summary><span><b>Response</b><small>Jawapan server</small></span><i>+</i></summary><p>Maklumat yang server pulangkan—status code, header dan kandungan seperti HTML atau JSON.</p></details>
+        <details data-term="jdk java development kit"><summary><span><b>JDK</b><small>Java Development Kit</small></span><i>+</i></summary><p><strong>Maksud:</strong> kit pembangunan Java. <strong>Fungsi:</strong> menyediakan semua yang kita perlukan untuk menulis, compile dan menjalankan Java, termasuk <code>javac</code> dan runtime. <strong>Contoh:</strong> projek kita menggunakan JDK 8. <strong>Ingat:</strong> jika mahu membina code Java, pasang JDK.</p></details>
+        <details data-term="jre java runtime environment"><summary><span><b>JRE</b><small>Java Runtime Environment</small></span><i>+</i></summary><p><strong>Maksud:</strong> persekitaran untuk menjalankan aplikasi Java. <strong>Fungsi:</strong> menyediakan JVM dan Java class libraries yang diperlukan ketika program berjalan. <strong>Analogi:</strong> JRE ialah ruang dapur lengkap; JVM ialah tukang masak di dalamnya. <strong>Ingat:</strong> JRE fokus pada <em>run</em>, bukan membina code.</p></details>
+        <details data-term="jvm java virtual machine"><summary><span><b>JVM</b><small>Java Virtual Machine</small></span><i>+</i></summary><p><strong>Maksud:</strong> mesin maya Java. <strong>Fungsi:</strong> membaca dan menjalankan bytecode dalam fail <code>.class</code>. <strong>Analogi:</strong> bytecode ialah resipi yang sama; setiap sistem operasi mempunyai JVM yang tahu cara memasaknya. <strong>Ingat:</strong> JVM tidak menulis atau compile source code.</p></details>
+        <details data-term="javac java compiler command"><summary><span><b>javac</b><small>Java compiler command · bukan acronym</small></span><i>+</i></summary><p><strong>Maksud:</strong> nama command untuk Java compiler. <strong>Fungsi:</strong> menukar source code <code>.java</code> kepada bytecode <code>.class</code>. <strong>Contoh:</strong> <code>javac Hello.java</code>. <strong>Ingat:</strong> <code>javac</code> compile; command <code>java</code> menjalankan program.</p></details>
+        <details data-term="javax namespace package java extension"><summary><span><b>javax</b><small>Java extension namespace · bukan acronym biasa</small></span><i>+</i></summary><p><strong>Maksud:</strong> awalan Package yang digunakan oleh banyak API Java tambahan dan Java EE terdahulu. <strong>Contoh:</strong> <code>javax.servlet.http</code>. <strong>Ingat:</strong> Tomcat 9 menggunakan <code>javax.servlet</code>; jangan tukar kepada <code>jakarta.servlet</code> dalam projek kelas ini.</p></details>
+        <details data-term="jakarta namespace package enterprise edition"><summary><span><b>Jakarta EE</b><small>Jakarta Enterprise Edition</small></span><i>+</i></summary><p><strong>Maksud:</strong> platform enterprise Java yang meneruskan teknologi Java EE di bawah Eclipse Foundation. <strong>Contoh:</strong> Tomcat 10+ menggunakan Package <code>jakarta.servlet</code>. <strong>Ingat:</strong> <code>javax.servlet</code> dan <code>jakarta.servlet</code> bukan Import yang sama.</p></details>
+        <details data-term="servlet server request response"><summary><span><b>Servlet</b><small>Java server component · bukan acronym</small></span><i>+</i></summary><p><strong>Maksud:</strong> Class Java yang berjalan dalam Servlet Container. <strong>Fungsi:</strong> menerima HTTP Request dan menghasilkan HTTP Response. <strong>Contoh:</strong> <code>HelloServlet</code>. <strong>Ingat:</strong> Servlet berjalan di Tomcat/server, bukan dalam browser.</p></details>
+        <details data-term="api application programming interface"><summary><span><b>API</b><small>Application Programming Interface</small></span><i>+</i></summary><p><strong>Maksud:</strong> antara muka untuk software menggunakan fungsi software lain. <strong>Fungsi:</strong> memberikan peraturan, Class atau Method yang boleh digunakan tanpa membina semuanya dari awal. <strong>Contoh:</strong> Servlet API menyediakan <code>HttpServlet</code>. <strong>Ingat:</strong> API bukan semestinya website atau URL.</p></details>
+        <details data-term="http hypertext transfer protocol web"><summary><span><b>HTTP</b><small>Hypertext Transfer Protocol</small></span><i>+</i></summary><p><strong>Maksud:</strong> protokol pemindahan hypertext. <strong>Fungsi:</strong> menetapkan cara browser dan server berkomunikasi. <strong>Contoh:</strong> browser menghantar GET Request dan Tomcat memulangkan Response. <strong>Ingat:</strong> HTTPS ialah HTTP yang dilindungi encryption.</p></details>
+        <details data-term="request permintaan browser url uniform resource locator"><summary><span><b>Request</b><small>Permintaan daripada client</small></span><i>+</i></summary><p><strong>Maksud:</strong> mesej yang dihantar oleh client seperti browser kepada server. Ia boleh membawa URL (<em>Uniform Resource Locator</em>), HTTP Method, header dan input pengguna. <strong>Contoh:</strong> <code>GET /MyApp/devop/hello</code>.</p></details>
+        <details data-term="response jawapan server html hypertext markup language json"><summary><span><b>Response</b><small>Jawapan daripada server</small></span><i>+</i></summary><p><strong>Maksud:</strong> mesej balasan server kepada client. Ia mengandungi status code, header dan body. <strong>Contoh:</strong> Servlet menghantar HTML (<em>HyperText Markup Language</em>) yang mengandungi <code>&lt;h3&gt;Hello&lt;/h3&gt;</code>.</p></details>
         <details data-term="package folder namespace"><summary><span><b>Package</b><small>Susunan dan namespace Class</small></span><i>+</i></summary><p>Mengelompokkan Class dan mengelakkan nama bertembung. Contoh projek: <code>com.app1.devop</code>.</p></details>
         <details data-term="import class"><summary><span><b>Import</b><small>Gunakan Class dari Package lain</small></span><i>+</i></summary><p>Membolehkan nama Class digunakan tanpa menulis nama Package penuh. Contoh: <code>import java.io.IOException;</code>.</p></details>
         <details data-term="build path classpath eclipse"><summary><span><b>Build Path & Classpath</b><small>Lokasi rujukan compiler/JVM</small></span><i>+</i></summary><p><strong>Build Path</strong> ialah tetapan Eclipse untuk source dan library ketika build. <strong>Classpath</strong> ialah senarai lokasi Class/JAR yang dicari ketika compile atau run.</p></details>
-        <details data-term="jar java archive library"><summary><span><b>JAR</b><small>Java Archive</small></span><i>+</i></summary><p>Fail arkib yang mengumpulkan Class dan resource Java. Analogi: kotak alat siap guna, contohnya <code>jstl-1.2.jar</code>.</p></details>
-        <details data-term="war deployment archive"><summary><span><b>WAR & Deployment</b><small>Web Application Archive</small></span><i>+</i></summary><p><strong>WAR</strong> membungkus aplikasi web Java untuk server. <strong>Deployment</strong> ialah proses meletakkan aplikasi pada Tomcat supaya boleh diakses pengguna.</p></details>
+        <details data-term="jar java archive library"><summary><span><b>JAR</b><small>Java Archive</small></span><i>+</i></summary><p><strong>Maksud:</strong> fail arkib Java. <strong>Fungsi:</strong> mengumpulkan compiled Class dan resource dalam satu fail. <strong>Contoh:</strong> <code>jstl-1.2.jar</code>. <strong>Analogi:</strong> satu kotak alat yang mengandungi code siap guna.</p></details>
+        <details data-term="war web application archive deployment"><summary><span><b>WAR</b><small>Web Application Archive</small></span><i>+</i></summary><p><strong>Maksud:</strong> fail arkib aplikasi web. <strong>Fungsi:</strong> membungkus Servlet, halaman web, library dan konfigurasi untuk dihantar ke server. <strong>Deployment</strong> ialah proses meletakkan aplikasi/WAR pada Tomcat supaya boleh dijalankan dan diakses.</p></details>
       </div>
       <p class="empty-state" id="term-empty" hidden>Tiada istilah dijumpai. Cuba kata kunci lain.</p>
     </section>
@@ -437,15 +457,15 @@
             <div class="file-icon jar">JAR</div>
             <h4>JSTL 1.2</h4>
             <code>jstl-1.2.jar</code>
-            <p>Library <strong>JSP Standard Tag Library</strong> untuk menggunakan tag siap guna dalam halaman JSP.</p>
+            <p><strong>JSTL = JavaServer Pages Standard Tag Library.</strong> Library tag siap guna untuk halaman <strong>JSP = JavaServer Pages</strong>.</p>
             <mark>✓ Dijumpai dalam WEB-INF/lib</mark>
           </article>
           <article>
             <span class="file-type">DEVELOPMENT KIT</span>
             <div class="file-icon jdk">JDK</div>
-            <h4>Java SDK → JDK 8</h4>
+            <h4>JDK 8</h4>
             <code>JavaSE-1.8</code>
-            <p>Kit pembangunan Java yang menyediakan <code>javac</code>, runtime dan tools untuk membina program.</p>
+            <p><strong>JDK = Java Development Kit.</strong> Menyediakan <code>javac</code>, Java runtime dan tools untuk membina program.</p>
             <mark>ℹ Istilah tepat: JDK</mark>
           </article>
         </div>
@@ -671,7 +691,7 @@
       <h1>Java Web Day 1 — Cheat Sheet</h1>
       <p>Asas Pembangunan Aplikasi Web Menggunakan Java · Projek MyApp · Tomcat 9</p>
       <div class="cheat-columns">
-        <article><h2>Compilation</h2><p><code>.java → javac → .class → JVM</code></p><p><b>JDK</b>: tools pembangunan<br><b>JRE</b>: runtime<br><b>JVM</b>: jalankan bytecode</p></article>
+        <article><h2>Compilation</h2><p><code>.java → javac → .class → JVM</code></p><p><b>JDK</b>: Java Development Kit<br><b>JRE</b>: Java Runtime Environment<br><b>JVM</b>: Java Virtual Machine<br><b>javac</b>: Java compiler command</p></article>
         <article><h2>Servlet</h2><p>Class Java di server yang menerima Request dan menghasilkan Response.</p><p>Tomcat 9: <code>javax.servlet.*</code><br>Tomcat 10+: <code>jakarta.servlet.*</code></p></article>
         <article><h2>HTTP</h2><p><b>GET</b>: baca data; parameter lazimnya pada URL.<br><b>POST</b>: hantar/cipta data; data lazimnya dalam body.</p></article>
         <article><h2>Struktur MyApp</h2><p><code>src/main/java</code>: source Java<br><code>src/main/webapp</code>: web root<br><code>WEB-INF</code>: dilindungi<br><code>WEB-INF/lib</code>: JAR</p></article>
@@ -699,6 +719,6 @@ doPost(HttpServletRequest request, HttpServletResponse response)</pre>
     </form>
   </dialog>
 
-  <script src="script.js?v=2026.07.28.1"></script>
+  <script src="script.js?v=2026.07.28.2"></script>
 </body>
 </html>
