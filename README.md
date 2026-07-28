@@ -22,6 +22,22 @@ kursus_java/
 
 Day 2 dan Day 3 boleh ditambah sebagai `<section>` baharu dalam `index.html`. Gunakan corak section sedia ada supaya reka bentuk kekal konsisten.
 
+## Cache dan release baharu
+
+Website menyemak `version.json` setiap 60 saat. Apabila menerbitkan perubahan baharu:
+
+1. Tukar nombor `APP_VERSION` dalam `script.js`.
+2. Tukar nombor `version` dalam `version.json` kepada nilai yang sama.
+3. Tukar query `?v=` pada `styles.css` dan `script.js` dalam `index.html`.
+
+Contoh release seterusnya:
+
+```text
+2026.07.28.2
+```
+
+Tab yang masih terbuka akan mengesan versi baharu, memaparkan notis dan reload secara automatik.
+
 ## Upload ke GitHub
 
 1. Daftar atau log masuk di [GitHub](https://github.com/).
@@ -76,4 +92,3 @@ GitHub Pages akan menerbitkan versi baharu secara automatik.
 - Tomcat 9 menggunakan `javax.servlet.*`; Tomcat 10+ menggunakan `jakarta.servlet.*`.
 - `servlet-api.jar` disediakan oleh Tomcat ketika runtime.
 - POST bukan automatik secure; HTTPS masih diperlukan.
-

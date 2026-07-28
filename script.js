@@ -1,5 +1,34 @@
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+const APP_VERSION = "2026.07.28.1";
+
+async function checkForFreshVersion() {
+  try {
+    const response = await fetch(`version.json?nocache=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) return;
+    const release = await response.json();
+    if (!release.version || release.version === APP_VERSION) return;
+
+    if (!$(".update-toast")) {
+      const toast = document.createElement("div");
+      toast.className = "update-toast";
+      toast.setAttribute("role", "status");
+      toast.innerHTML = "<strong>Versi baharu tersedia</strong><span>Website sedang dimuat semula untuk mendapatkan nota terkini…</span>";
+      document.body.append(toast);
+    }
+
+    setTimeout(() => {
+      const freshUrl = new URL(window.location.href);
+      freshUrl.searchParams.set("v", release.version);
+      window.location.replace(freshUrl.toString());
+    }, 1300);
+  } catch {
+    // Jika offline, pengguna terus menggunakan versi yang sudah dimuatkan.
+  }
+}
+
+checkForFreshVersion();
+setInterval(checkForFreshVersion, 60_000);
 
 const root = document.documentElement;
 const savedTheme = localStorage.getItem("java-notes-theme");
